@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Look Who's Looking</title>
+  <script src = "https://code.jquery.com/jquery-2.1.4.min.js"></script>
+  <script>
+    $(document).ready(function(){
+      userText = $("#text")
+      submit = $("#submit")
+
+      submit.on("click",function(){
+        event.preventDefault();
+        console.log("you clicked me")
+        facebookData = (userText.val());
+        var start = facebookData.indexOf("\"list\":");
+        var end = facebookData.indexOf(",\"groups\":");
+
+        var friendsList = facebookData.substring((start+9), end);
+        var firstFriendEnd = friendsList.indexOf("-");
+        var firstFriend = friendsList.substring(0,firstFriendEnd)
+        var link = "<h2><a href=\"https://www.facebook.com/"+firstFriend+"\">Your biggest stalker</a></h2>"
+
+        $("#results").append(link)
+
+
+      })
+
+
+    })
+  </script>
+
+  <style>
+    main, header {
+      text-align:center;
+      margin:0 auto;
+      width:50%;
+    }
+    ol{
+      text-align:left;
+      width:50%;
+      margin:20px auto;
+    }
+
+
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>Who's Looking at Me?</h1>
+  </header>
+
+  <main>
+    <h2>Instructions:</h2>
+    <ol>
+      <li>Go to your Facebook profile page</li>
+      <li>Right click on the page and view source</li>
+      <li>Copy and paste the source data into the text box below</li>
+    </ol>
+
+
+    <form id="usrform">
+      <textarea id="text" name="text" form="usrform" style="width: 300px; height:300px"></textarea><br>
+      <input id="submit" type="submit">
+    </form>
+    <div id="results">
+    </div>
+  </main>
+
+  <footer>
+  </footer>
+
+</body>
+
+</html>
